@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jenkins-test
+  annotations:
+   # kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+      - test.contentservice.net
+    secretName: cs-tls-secret-digicert
+  rules:
+  - host: test.contentservice.net
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: jenkins-test
+          servicePort: 80
